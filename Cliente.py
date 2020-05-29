@@ -45,7 +45,7 @@ def verMenu(Cliente):
     seguir=True
     while (seguir):
         print("Eliga una operacion:")
-        print("1.Create\n2.Read\n3.Write\n4.Rename\n5.Remove\n6.Crear Directorio\n7.Crear Borrado\n8.Ver directorio")
+        print("1.Create\n2.Read\n3.Write\n4.Rename\n5.Remove\n6.Crear Directorio\n7.Borrar directorio\n8.Ver directorio")
         case=int(input("Opcion: "))
         menu(case,Cliente)
         print("Continuar?")
