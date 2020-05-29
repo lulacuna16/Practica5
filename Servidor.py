@@ -10,7 +10,7 @@ class RequestHandler(SimpleXMLRPCRequestHandler):
 with SimpleXMLRPCServer(('192.168.1.64', 56432),requestHandler=RequestHandler) as Server:
     Server.register_introspection_functions()
 
-    def CREATE(name,ruta):
+    def CREATE(name):
         try:
             with open(name+".txt","x") as file:
                 return name + ".txt Creado correctamente"
@@ -55,7 +55,7 @@ with SimpleXMLRPCServer(('192.168.1.64', 56432),requestHandler=RequestHandler) a
     def MKDIR(ruta):
         try:
             os.makedirs(ruta)
-            return "Directorio creado",1
+            return "Directorio creado"
         except FileNotFoundError:
             return "¡¡Ruta Invalida!!"
         except FileExistsError:
