@@ -13,7 +13,7 @@ with SimpleXMLRPCServer(('192.168.1.64', 56432),requestHandler=RequestHandler) a
     def CREATE(name):
         try:
             with open(name,"x") as file:
-                return name + ".txt Creado correctamente"
+                return name + " Creado correctamente"
                 print()
         except FileExistsError:
             return "¡¡Archivo existente!!"
