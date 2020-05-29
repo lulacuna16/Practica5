@@ -12,44 +12,46 @@ with SimpleXMLRPCServer(('192.168.1.64', 56432),requestHandler=RequestHandler) a
 
     def CREATE(name):
         try:
-            with open(name+".txt","x") as file:
+            with open(name,"x") as file:
                 return name + ".txt Creado correctamente"
                 print()
         except FileExistsError:
             return "¡¡Archivo existente!!"
+        except FileNotFoundError:
+            return "¡¡Ruta no existente!!"
     Server.register_function(CREATE)
 
     def READ(name):
         try:
-            with open(name + ".txt", "r") as file:
+            with open(name, "r") as file:
                 return file.read()
                 print()
         except FileNotFoundError:
-            return "¡¡Archivo No existente!!"
+            return "¡¡Archivo/Ruta No existente!!"
     Server.register_function(READ)
     def WRITE(name,content,mode):
         try:
-           with open(name + ".txt", mode) as file:
+           with open(name, mode) as file:
              file.write("\n"+content)
              print()
            return "Escritura completada!!"
         except FileNotFoundError:
-            return "¡¡Archivo No existente!!"
+            return "¡¡Archivo/Ruta No existente!!"
     Server.register_function(WRITE)
     def RENAME(name1,name2):
         try:
-            os.rename(name1+".txt",name2+".txt")
+            os.rename(name1,name2)
             return "Renombrado completo"
         except FileNotFoundError:
-            return "¡¡Archivo No existente!!"
+            return "¡¡Archivo/Ruta No existente!!"
     Server.register_function(RENAME)
 
     def REMOVE(name):
         try:
-            os.remove(name+".txt")
+            os.remove(name)
             return "Borrado completo"
         except FileNotFoundError:
-            return "¡¡Archivo No existente!!"
+            return "¡¡Archivo/Ruta No existente!!"
     Server.register_function(REMOVE)
 
     def MKDIR(ruta):
@@ -78,6 +80,14 @@ with SimpleXMLRPCServer(('192.168.1.64', 56432),requestHandler=RequestHandler) a
         except FileNotFoundError:
             return "¡¡Ruta Invalida!!"
     Server.register_function(READDIR)
+    def READDIR2(ruta):
+        try:
+            lista=os.listdir(ruta)
+            return lista
+        except FileNotFoundError:
+            return "¡¡Ruta Invalida!!"
+    Server.register_function(READDIR2)
+
 
 
     print("Servidor iniciado")

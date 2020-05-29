@@ -2,15 +2,15 @@ import xmlrpc.client
 #crear un cliente del servidor
 def menu(case,Cliente):
     if case==1:
-        x=str(input("Ingrese nombre del archivo a crear: "))
+        x=str(input("Ingrese nombre o ruta (v.g: Carpeta1/hola.txt) del archivo a crear: "))
         print(Cliente.CREATE(x))
     elif case==2:
-        x=str(input("Ingrese nombre del archivo a leer: "))
+        x=str(input("Ingrese nombre o ruta (v.g: Carpeta1/hola.txt): del archivo a leer: "))
         content=Cliente.READ(x)
         print(content)
 
     elif case==3:
-        x=str(input("Ingrese nombre del archivo donde desea escribir: "))
+        x=str(input("Ingrese nombre o ruta (v.g: Carpeta1/hola.txt) del archivo donde desea escribir: "))
         mode = "a"
         content = str(input("Escribe el contenido del archivo:\n"))
         overwrite=int(input("¿Sobrescribir archivo?\n1.Si\t2.No\n"))
@@ -19,11 +19,11 @@ def menu(case,Cliente):
         resp=Cliente.WRITE(x,content,mode)
         print(resp)
     elif case == 4:
-        x=str(input("Ingrese nombre ORIGINAL del archivo : "))
-        y =str(input("Ingrese nombre NUEVO del archivo : "))
+        x=str(input("Ingrese nombre o ruta ORIGINAL del archivo (v.g: hola.txt): "))
+        y =str(input("Ingrese nombre o ruta NUEVO del archivo (v.g: aloh.txt): "))
         resp=Cliente.RENAME(x,y)
     elif case == 5:
-        x = str(input("Ingrese nombre del archivo a eliminar: "))
+        x = str(input("Ingrese nombre o ruta (v.g: Carpeta1/hola.txt) del archivo a eliminar: "))
         resp = Cliente.REMOVE(x)
         print(resp)
     elif case == 6:
@@ -35,10 +35,16 @@ def menu(case,Cliente):
         resp = Cliente.RMDIR(x)
         print(resp)
     elif case == 8:
-        #x = str(input("Ruta del directorio (v.g. Practica5/Nombre_1/Nombre_2/.../)\n"))
-        lista = Cliente.READDIR()
-        for files in lista:
-            print("\t"+files)
+        x=int(input("1.Raiz\t2.Especifico"))
+        if x==1:
+            lista = Cliente.READDIR()
+            for files in lista:
+                print("\t"+files)
+        else:
+            z= str(input("Ruta del directorio (v.g. Practica5/Nombre_1/Nombre_2/.../)\n"))
+            lista = Cliente.READDIR2(z)
+            for files in lista:
+                print("\t" + files)
     else:
         print("Opcion no valida\n")
 def verMenu(Cliente):
